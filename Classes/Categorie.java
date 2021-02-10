@@ -13,6 +13,7 @@ public class Categorie {
 	private String intitule;
 	private  Button deletButt;
 	private  Button setButt;
+	private  Button viewButt;
 	private HBox buttons = new HBox();
 	private ConnectToBD connect = new ConnectToBD();
 	
@@ -24,6 +25,7 @@ public class Categorie {
 		
 		this.deletButt = new Button("Supp");
 		this.setButt = new Button("Set");
+		this.viewButt = new Button("View");
 		buttons.setSpacing(5);
 		buttons.getChildren().addAll(deletButt,setButt);
 		deletButt.getStyleClass().add("DeletButt");
@@ -40,6 +42,9 @@ public class Categorie {
 		});
 		setButt.setOnAction(event->{
 			new FormSetCategorie(this.codeCat);
+		});
+		viewButt.setOnAction(event->{
+			System.out.println("View Clicked");
 		});
 	}
 	public long getCodeCat() {
@@ -62,6 +67,10 @@ public class Categorie {
 	public Button getSetButt() {
 		return setButt;
 	}
+	public Button getViewButt() {
+		return viewButt;
+	}
+	
 	public HBox getButtons() {
 		return buttons;
 	}
@@ -70,6 +79,9 @@ public class Categorie {
 	}
 	public void setSetButt(Button setButt) {
 		this.setButt = setButt;
+	}
+	public void setViewButt(Button viewButt) {
+		this.viewButt = viewButt;
 	}
 	public void setButtons(HBox buttons) {
 		this.buttons = buttons;
