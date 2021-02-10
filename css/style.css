@@ -1,0 +1,131 @@
+.mainWindow {
+	-fx-background-image : url("home.jpg");
+	-fx-background-repeat : stretch;
+	-fx-background-size : 1100 565;
+}
+.labelTitle {
+	-fx-background-color : #02adff;
+	-fx-text-fill : #f7f7f7;
+	-fx-font-size : 36px;
+}
+.labelTitleSetForm{
+	-fx-background-color : #8800ff;
+	-fx-text-fill : #f7f7f7;
+	-fx-font-size : 36px;
+}
+.textfield {
+	
+	-fx-font-size : 15.0px;
+}
+
+.labelForm {
+	-fx-text-fill : #000;
+	-fx-font-size : 16px;
+	
+}
+.labelFormSet {
+	-fx-text-fill : #000;
+	-fx-font-size : 15px;
+	
+}
+.labelOn {
+	
+	-fx-text-fill : #000;
+	-fx-font-size : 24px;
+	-fx-background-color : #d64161 ;
+}
+
+.ajoutWindow {
+	-fx-background-repeat : stretch;
+	-fx-background-size : 370 370;
+	-fx-background-position : center
+}
+.addBtn {
+	-fx-background-color : #0e5225;
+	-fx-border-color : #50ff00;
+	-fx-background-radius : 2.0, 2.0, 2.0, 2.0;
+	-fx-text-fill : #ffffff;
+	-fx-font-size : 14.0px;
+	-fx-pref-height : 40.0px;
+	-fx-pref-width : 190.0px;
+	
+}
+.labelError{
+	-fx-border-color : #ff0000;
+	-fx-border : 10.0px;
+}
+.cancelBtn {
+	-fx-background-color : #ff0000;
+	-fx-border-color : #ff8040;
+	-fx-background-radius : 2.0, 2.0, 2.0, 2.0;
+	-fx-text-fill : #ffffff;
+	-fx-font-size : 14.0px;
+	-fx-pref-height : 40.0px;
+	-fx-pref-width : 190.0px;
+	
+}
+
+.emptyBtn {
+	-fx-background-color : #0000ff;
+	-fx-border-color : #ff8040;
+	-fx-background-radius : 2.0, 2.0, 2.0, 2.0;
+	-fx-text-fill : #ffffff;
+	-fx-font-size : 14.0px;
+	-fx-pref-height : 40.0px;
+	-fx-pref-width : 190.0px;
+	
+}
+.btnClick {
+	-fx-background-color : #ff0000;
+	-fx-border-color : #ff8040;
+	-fx-background-radius : 3.0, 2.0, 2.0, 2.0;
+	-fx-text-fill : #000;
+	-fx-font-size : 16.0px;
+	-fx-pref-height : 40.0px;
+	-fx-pref-width : 190.0px;
+	
+}
+.labelinfosError{
+	-fx-font-size : 10.0px;
+	-fx-text-fill  : #ff0000;
+}
+.labelinfosValid{
+	-fx-font-size : 10.0px;
+	-fx-text-fill  : #00ff00;
+}
+.NewprodInList{
+	-fx-background-color : #02adff;
+	-fx-border-color : #02bdff;
+	-fx-font-size : 16.0px;
+	-fx-background-position : center
+}
+.CancelInList{
+	-fx-background-color : #ff0000;
+	-fx-border-color : #ff0011;
+	-fx-font-size : 16.0px;
+	-fx-background-position : center;
+	-fx-text-fill : #ffffff
+}
+
+.DeletButt{
+	-fx-background-color : #ff0000;
+	-fx-border-color : #ff8040;
+	
+}
+.SetButt{
+	-fx-background-color : #00ff00;
+	-fx-border-color : #80ff40;
+	
+}
+.labelTextVent{
+	-fx-background-color : #ffffff;
+	-fx-border-color : #80ff40;
+}
+.table-row-cell:empty .table-cell {
+-fx-background-color: white;
+-fx-border-width: 0px;
+}
+.addNVent{
+	-fx-background-color : #ffaa00;
+	
+}
