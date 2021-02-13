@@ -34,7 +34,12 @@
 	-fx-font-size : 24px;
 	-fx-background-color : #d64161 ;
 }
-
+.Loginroot{
+	-fx-background-color : #808080 ;
+}
+.loginLabel{
+	-fx-font-size : 20px;
+}
 .ajoutWindow {
 	-fx-background-repeat : stretch;
 	-fx-background-size : 370 370;
@@ -75,6 +80,19 @@
 	-fx-pref-width : 190.0px;
 	
 }
+.loginBtn{
+	
+	-fx-background-color : #0000fa;
+	-fx-border-color : #ffffff;
+	-fx-font-size : 14.0px;
+	-fx-text-fill : #ffffff;
+}
+.createBtn{
+	-fx-background-color : #fa5000;
+	-fx-border-color : #ffffff;	
+	-fx-font-size : 14.0px;
+	-fx-text-fill : #ffffff;
+}
 .btnClick {
 	-fx-background-color : #ff0000;
 	-fx-border-color : #ff8040;
@@ -114,7 +132,11 @@
 }
 .SetButt{
 	-fx-background-color : #00ff00;
-	-fx-border-color : #80ff40;
+	-fx-border-color : #80ff40;	
+}
+.ViewButt{
+	-fx-background-color : #ff8800;
+	-fx-border-color : #ff7700;
 	
 }
 .labelTextVent{
@@ -128,4 +150,8 @@
 .addNVent{
 	-fx-background-color : #ffaa00;
 	
+}
+.ventePaye{
+	-fx-text-fill:#ff0000;
+	-fx-font-size:12px;
 }

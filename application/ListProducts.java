@@ -33,7 +33,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ListProducts {
-	//public  HBox rootHbox = new HBox();
 	 ScrollPane scrollPane = new ScrollPane();
 	 VBox root = new VBox();
 	public static  TableView<Produit> tableProduct = new TableView<Produit>(); 
@@ -52,31 +51,6 @@ public class ListProducts {
 	 HBox buttonBox = new HBox();
 	 Button AddNew = new Button("Ajouter nouveau");
 	 Button Cancel = new Button("Quitter la liste");
- 	//public static VBox setWindow = new VBox();
-
- 	
-// 	public static void setWindowStyle(int width, int height, long code) {
-// 		
-// 		
-// 		window.setWidth(width);
-// 		window.setHeight(height);
-// 		
-//		setWindow.setMaxHeight(500);
-//		setWindow.setMinHeight(500);
-//		setWindow.setMaxWidth(285);
-//		setWindow.setMinWidth(285);
-//		setWindow.setVisible(true);
-//		FormSetProduit win = new FormSetProduit(String.valueOf(code));
-//		VBox form = win.getRoot(String.valueOf(code));
-//		form.setMaxHeight(setWindow.getMaxHeight());
-//		form.setMinHeight(setWindow.getMinHeight());
-//		form.setMaxWidth(setWindow.getMaxWidth());
-//		form.setMinWidth(setWindow.getMinWidth());
-//		setWindow.getChildren().setAll(form);
-// 		
-// 	}
-
-	
 	
 	private void initWindow() {
 
@@ -155,8 +129,6 @@ public class ListProducts {
 		buttonBox.setMaxWidth(window.getWidth());
 		root.setSpacing(20);
 		prodCode.setMaxWidth(50);
-//		rootHbox.setSpacing(15);
-// 		rootHbox.setSpacing(15);
 		double width = (window.getWidth()-10)/7;
 		prodCode.setMinWidth(width);
 		prodDesgn.setMinWidth(width);
@@ -179,6 +151,13 @@ public class ListProducts {
 
 	}
 	
+	public static void Remplirtable(String intitule) {
+		ConnectToBD connect = new ConnectToBD();
+		ObservableList<Produit> listOfProducts;
+		listOfProducts = connect.getListOfProducts(intitule);
+		tableProduct.setItems(listOfProducts);
+	}
+	
 
 	public ListProducts() {
 		initWindow();
@@ -186,5 +165,151 @@ public class ListProducts {
 		window.show();
 		
 	}
+	
+	public ListProducts(String intitule) {
+		initWindow();
+		Remplirtable(intitule);
+//		AddNew.setVisible(false);
+		root.getChildren().remove(AddNew);
+		window.show();
+		
+	}
+	public ListProducts(boolean change) {
+		initWindow();
+		Actions.setCellValueFactory(new PropertyValueFactory<Produit,String>("selectBtn"));
+		Remplirtable();
+		AddNew.setVisible(false);
+		window.show();
+		
+	}
+
+	public ScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
+	public VBox getRoot() {
+		return root;
+	}
+
+	public static TableView<Produit> getTableProduct() {
+		return tableProduct;
+	}
+
+	public static Stage getWindow() {
+		return window;
+	}
+
+	public Scene getScene() {
+		return scene;
+	}
+
+	public Label getWindowTitle() {
+		return WindowTitle;
+	}
+
+	public TableColumn<Produit, String> getProdCode() {
+		return prodCode;
+	}
+
+	public TableColumn<Produit, String> getProdDesgn() {
+		return prodDesgn;
+	}
+
+	public TableColumn<Produit, String> getProdQte() {
+		return prodQte;
+	}
+
+	public TableColumn<Produit, String> getProdPrixAch() {
+		return prodPrixAch;
+	}
+
+	public TableColumn<Produit, String> getProdPrixVen() {
+		return prodPrixVen;
+	}
+
+	public TableColumn<Produit, String> getCategory() {
+		return Category;
+	}
+
+	public TableColumn getActions() {
+		return Actions;
+	}
+
+	public HBox getButtonBox() {
+		return buttonBox;
+	}
+
+	public Button getAddNew() {
+		return AddNew;
+	}
+
+	public Button getCancel() {
+		return Cancel;
+	}
+
+	public void setScrollPane(ScrollPane scrollPane) {
+		this.scrollPane = scrollPane;
+	}
+
+	public void setRoot(VBox root) {
+		this.root = root;
+	}
+
+	public static void setTableProduct(TableView<Produit> tableProduct) {
+		ListProducts.tableProduct = tableProduct;
+	}
+
+	public static void setWindow(Stage window) {
+		ListProducts.window = window;
+	}
+
+	public void setScene(Scene scene) {
+		this.scene = scene;
+	}
+
+	public void setWindowTitle(Label windowTitle) {
+		WindowTitle = windowTitle;
+	}
+
+	public void setProdCode(TableColumn<Produit, String> prodCode) {
+		this.prodCode = prodCode;
+	}
+
+	public void setProdDesgn(TableColumn<Produit, String> prodDesgn) {
+		this.prodDesgn = prodDesgn;
+	}
+
+	public void setProdQte(TableColumn<Produit, String> prodQte) {
+		this.prodQte = prodQte;
+	}
+
+	public void setProdPrixAch(TableColumn<Produit, String> prodPrixAch) {
+		this.prodPrixAch = prodPrixAch;
+	}
+
+	public void setProdPrixVen(TableColumn<Produit, String> prodPrixVen) {
+		this.prodPrixVen = prodPrixVen;
+	}
+
+	public void setCategory(TableColumn<Produit, String> category) {
+		Category = category;
+	}
+
+	public void setActions(TableColumn actions) {
+		Actions = actions;
+	}
+
+	public void setButtonBox(HBox buttonBox) {
+		this.buttonBox = buttonBox;
+	}
+
+	public void setAddNew(Button addNew) {
+		AddNew = addNew;
+	}
+
+	public void setCancel(Button cancel) {
+		Cancel = cancel;
+	}
+	
 
 }

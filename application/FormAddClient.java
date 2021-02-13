@@ -49,6 +49,9 @@ public class FormAddClient {
 	TextField ClientEmailText = new TextField();
 	Label emailinfos = new Label();
 	
+	Label ClientPasswdLabel = new Label("Password : ");
+	TextField ClientPasswdText = new TextField();
+	
 	Label ClientAdressLabel = new Label("Address : ");
 	TextField ClientAdressText = new TextField();
 	Label addressinfos = new Label();
@@ -67,6 +70,7 @@ public class FormAddClient {
 		root.getChildren().addAll(ClientPrenomLabel, ClientPrenomText, prenominfos);
 		root.getChildren().addAll(ClientNumTelLabel,ClientNumTelText,telinfos);
 		root.getChildren().addAll(ClientEmailLabel, ClientEmailText, emailinfos);
+		root.getChildren().addAll(ClientPasswdLabel, ClientPasswdText);
 		root.getChildren().addAll(ClientAdressLabel, ClientAdressText,addressinfos);
 		root.getChildren().add(buttonsBox);
 		rootV.getChildren().add(root);
@@ -97,15 +101,17 @@ public class FormAddClient {
 			if(ClientPrenomText.getText().isEmpty()) {ClientPrenomText.getStyleClass().add("labelError");}
 			if(ClientNumTelText.getText().isEmpty()) {ClientNumTelText.getStyleClass().add("labelError");}
 			if(ClientEmailText.getText().isEmpty()) {ClientEmailText.getStyleClass().add("labelError");}
+			if(ClientPasswdText.getText().isEmpty()) {ClientPasswdText.getStyleClass().add("labelError");}
 			if(ClientAdressText.getText().isEmpty()) {ClientAdressText.getStyleClass().add("labelError");}
 			if(!ClientNumTelText.getStyleClass().contains("labelError")&&!ClientNomText.getStyleClass().contains("labelError")
-					&&!ClientPrenomText.getStyleClass().contains("labelError")&&!ClientEmailText.getStyleClass().contains("labelError")&&!ClientAdressText.getStyleClass().contains("labelError")) {
+					&&!ClientPrenomText.getStyleClass().contains("labelError")&&!ClientEmailText.getStyleClass().contains("labelError")&&!ClientAdressText.getStyleClass().contains("labelError")&&!ClientPasswdText.getStyleClass().contains("labelError")) {
 
 				
 				String nomCli = ClientNomText.getText().toUpperCase();
 				String prenomCli = ClientPrenomText.getText().toUpperCase();
 				long numTel = Long.parseLong(ClientNumTelText.getText());
 				String email = ClientEmailText.getText();
+				String passwd = ClientPasswdText.getText();
 				String address = ClientAdressText.getText();
 				String requet = "select * from Clients where Nom ='"+nomCli+"' and Prenom='"+prenomCli+"' and NumTelephone="+numTel+" and Email ='"+email+"' and Address='"+address+"'";
 
@@ -113,19 +119,21 @@ public class FormAddClient {
 				//System.out.println();
 				try {
 					if(result.next()==false || (result.getString("Nom").equals(nomCli)&&result.getString("Prenom").equals(prenomCli)&&result.getString("Email").equals(email)&&result.getString("Address").equals(address)&&(result.getLong("NumTelephone")==numTel))){
-							addClient.addClient(nomCli, prenomCli, numTel, email, address);
+							addClient.addClient(nomCli, prenomCli, numTel, email, passwd, address);
 							
 							
 							ClientNomText.setText("");
 							ClientPrenomText.setText("");
 							ClientNumTelText.setText("");
 							ClientEmailText.setText("");
+							ClientPasswdText.setText("");
 							ClientAdressText.setText("");
 
 							ClientNomText.getStyleClass().add("labelError");
 							ClientPrenomText.getStyleClass().add("labelError");
 							ClientNumTelText.getStyleClass().add("labelError");
 							ClientEmailText.getStyleClass().add("labelError");
+							ClientPasswdText.getStyleClass().add("labelForm");
 							ClientAdressText.getStyleClass().add("labelError");
 							
 							nominfos.setText("");
@@ -176,12 +184,14 @@ public class FormAddClient {
 			ClientPrenomText.setText("");
 			ClientNumTelText.setText("");
 			ClientEmailText.setText("");
+			ClientPasswdText.setText("");
 			ClientAdressText.setText("");
 			
 			ClientNomText.getStyleClass().add("labelError");
 			ClientPrenomText.getStyleClass().add("labelError");
 			ClientNumTelText.getStyleClass().add("labelError");
 			ClientEmailText.getStyleClass().add("labelError");
+			ClientPasswdText.getStyleClass().add("labelError");
 			ClientAdressText.getStyleClass().add("labelError");
 			
 			
@@ -194,6 +204,7 @@ public class FormAddClient {
 			ClientPrenomLabel.getStyleClass().setAll("labelForm");
 			ClientNumTelLabel.getStyleClass().setAll("labelForm");
 			ClientEmailLabel.getStyleClass().setAll("labelForm");
+			ClientPasswdLabel.getStyleClass().setAll("labelForm");
 			ClientAdressLabel.getStyleClass().setAll("labelForm");
 			if(!ClientNomText.getText().matches("[a-zA-Z-]{3,}")) {
 				ClientNomText.getStyleClass().add("labelError");
@@ -212,6 +223,7 @@ public class FormAddClient {
 			ClientNomLabel.getStyleClass().setAll("labelForm");
 			ClientNumTelLabel.getStyleClass().setAll("labelForm");
 			ClientEmailLabel.getStyleClass().setAll("labelForm");
+			ClientPasswdLabel.getStyleClass().setAll("labelForm");
 			ClientAdressLabel.getStyleClass().setAll("labelForm");
 			if(!ClientPrenomText.getText().matches("[a-zA-Z-]{3,}")) {
 				ClientPrenomText.getStyleClass().add("labelError");
@@ -229,6 +241,7 @@ public class FormAddClient {
 			ClientPrenomLabel.getStyleClass().setAll("labelForm");
 			ClientNomLabel.getStyleClass().setAll("labelForm");
 			ClientEmailLabel.getStyleClass().setAll("labelForm");
+			ClientPasswdLabel.getStyleClass().setAll("labelForm");
 			ClientAdressLabel.getStyleClass().setAll("labelForm");
 		
 			if(!ClientNumTelText.getText().matches("0{1}(6|7){1}\\d{8}")) {
@@ -249,7 +262,8 @@ public class FormAddClient {
 			ClientNomLabel.getStyleClass().setAll("labelForm");
 			ClientNumTelLabel.getStyleClass().setAll("labelForm");
 			ClientAdressLabel.getStyleClass().setAll("labelForm");
-		
+			ClientPasswdLabel.getStyleClass().setAll("labelForm");
+			
 			if(!ClientEmailText.getText().matches("[a-zA-Z]+[a-zA-Z0-9]+@[a-zA-Z]+(\\.)[a-zA-Z]{2,3}")) {
 				ClientEmailText.getStyleClass().add("labelError");
 				emailinfos.getStyleClass().setAll("labelinfosError");
@@ -261,23 +275,22 @@ public class FormAddClient {
 				emailinfos.setText("*email valide");
 			}
 		});
+		ClientPasswdText.setOnKeyTyped(event ->{
+			ClientPasswdLabel.getStyleClass().setAll("labelOn");
+			ClientPrenomLabel.getStyleClass().setAll("labelForm");
+			ClientNomLabel.getStyleClass().setAll("labelForm");
+			ClientEmailLabel.getStyleClass().setAll("labelForm");
+			ClientNumTelLabel.getStyleClass().setAll("labelForm");
+			ClientAdressLabel.getStyleClass().setAll("labelForm");
+		});
 		ClientAdressText.setOnKeyTyped(event ->{
 			ClientAdressLabel.getStyleClass().setAll("labelOn");
 			ClientPrenomLabel.getStyleClass().setAll("labelForm");
 			ClientNomLabel.getStyleClass().setAll("labelForm");
 			ClientNumTelLabel.getStyleClass().setAll("labelForm");
 			ClientEmailLabel.getStyleClass().setAll("labelForm");
-		
-//			if(!ClientAdressText.getText().matches("(^[a-zA-Z]+|[a-zA-Z]$)")) {
-//				ClientAdressText.getStyleClass().add("labelError");
-//				addressinfos.getStyleClass().setAll("labelinfosError");
-//				addressinfos.setText("*address incorrect");
-//			}
-//			else {
-//				ClientAdressText.getStyleClass().removeAll("labelError");
-//				addressinfos.getStyleClass().setAll("labelinfosValid");
-//				addressinfos.setText("*address valide");
-//			}
+			ClientPasswdLabel.getStyleClass().setAll("labelForm");
+
 		});
 		
 		ClientNomText.setOnMouseClicked(event ->{
@@ -286,6 +299,7 @@ public class FormAddClient {
 			ClientAdressLabel.getStyleClass().setAll("labelForm");
 			ClientNumTelLabel.getStyleClass().setAll("labelForm");
 			ClientEmailLabel.getStyleClass().setAll("labelForm");
+			ClientPasswdLabel.getStyleClass().setAll("labelForm");
 			
 		});
 		ClientPrenomText.setOnMouseClicked(event ->{
@@ -294,6 +308,7 @@ public class FormAddClient {
 			ClientAdressLabel.getStyleClass().setAll("labelForm");
 			ClientNumTelLabel.getStyleClass().setAll("labelForm");
 			ClientEmailLabel.getStyleClass().setAll("labelForm");
+			ClientPasswdLabel.getStyleClass().setAll("labelForm");
 		});
 		ClientNumTelText.setOnMouseClicked(event ->{
 			ClientNumTelLabel.getStyleClass().setAll("labelOn");
@@ -301,6 +316,7 @@ public class FormAddClient {
 			ClientAdressLabel.getStyleClass().setAll("labelForm");
 			ClientNomLabel.getStyleClass().setAll("labelForm");
 			ClientEmailLabel.getStyleClass().setAll("labelForm");
+			ClientPasswdLabel.getStyleClass().setAll("labelForm");
 			
 		});
 		ClientEmailText.setOnMouseClicked(event ->{
@@ -309,6 +325,16 @@ public class FormAddClient {
 			ClientAdressLabel.getStyleClass().setAll("labelForm");
 			ClientNomLabel.getStyleClass().setAll("labelForm");
 			ClientNumTelLabel.getStyleClass().setAll("labelForm");
+			ClientPasswdLabel.getStyleClass().setAll("labelForm");
+			
+		});
+		ClientPasswdText.setOnMouseClicked(event ->{
+			ClientPasswdLabel.getStyleClass().setAll("labelOn");
+			ClientPrenomLabel.getStyleClass().setAll("labelForm");
+			ClientAdressLabel.getStyleClass().setAll("labelForm");
+			ClientNomLabel.getStyleClass().setAll("labelForm");
+			ClientNumTelLabel.getStyleClass().setAll("labelForm");
+			ClientEmailLabel.getStyleClass().setAll("labelForm");
 			
 		});
 		ClientAdressText.setOnMouseClicked(event ->{
@@ -317,6 +343,7 @@ public class FormAddClient {
 			ClientNumTelLabel.getStyleClass().setAll("labelForm");
 			ClientNomLabel.getStyleClass().setAll("labelForm");
 			ClientEmailLabel.getStyleClass().setAll("labelForm");
+			ClientPasswdLabel.getStyleClass().setAll("labelForm");
 			
 		});	
 		
@@ -339,6 +366,8 @@ public class FormAddClient {
 		root.setMargin(ClientNumTelText,marginText);
 		root.setMargin(ClientEmailLabel,marginLabel);
 		root.setMargin(ClientEmailText,marginText);
+		root.setMargin(ClientPasswdLabel,marginLabel);
+		root.setMargin(ClientPasswdText,marginText);
 		root.setMargin(ClientAdressLabel,marginLabel);
 		root.setMargin(ClientAdressText,marginText);
 		root.setMargin(buttonsBox, marginLabel);
@@ -362,6 +391,8 @@ public class FormAddClient {
 		ClientNumTelText.setFont(Font.font(15));
 		ClientEmailText.setMaxWidth(380);
 		ClientEmailText.getStyleClass().add("textfield");
+		ClientPasswdText.setMaxWidth(380);
+		ClientPasswdText.getStyleClass().add("textfield");
 		ClientAdressText.setMaxWidth(380);
 		ClientAdressText.getStyleClass().add("textfield");
 		
@@ -374,6 +405,8 @@ public class FormAddClient {
 		ClientNumTelLabel.getStyleClass().add("labelForm");
 		ClientEmailLabel.setMaxWidth(380);
 		ClientEmailLabel.getStyleClass().add("labelForm");
+		ClientPasswdLabel.setMaxWidth(380);
+		ClientPasswdLabel.getStyleClass().add("labelForm");
 		ClientAdressLabel.setMaxWidth(380);
 		ClientAdressLabel.getStyleClass().add("labelForm");
 		
@@ -397,6 +430,7 @@ public class FormAddClient {
 		ClientNumTelText.setDisable(true);
 		ClientEmailText.setDisable(true);
 		ClientAdressText.setDisable(true);
+		ClientPasswdText.setDisable(true);
 		if(id!=-1) {
 			try {
 				String requet;
@@ -406,10 +440,13 @@ public class FormAddClient {
 					ClientNumTelText.setDisable(false);
 					ClientEmailText.setDisable(false);
 					ClientAdressText.setDisable(false);
+					ClientPasswdText.setDisable(false);
+
 					ClientNomText.setText(result.getString("Nom"));
 					ClientPrenomText.setText(result.getString("Prenom"));
 					ClientNumTelText.setText(String.valueOf(result.getString("NumTelephone")));
 					ClientEmailText.setText(result.getString("Email"));
+					ClientPasswdText.setText(result.getString("Password"));
 					ClientAdressText.setText(result.getString("Address"));
 				}
 			} catch (Exception e) {
@@ -430,9 +467,11 @@ public class FormAddClient {
 						ClientNumTelText.setDisable(false);
 						ClientEmailText.setDisable(false);
 						ClientAdressText.setDisable(false);
+						ClientPasswdText.setDisable(false);
 						//&result.getString("Email").equals(email)&&result.getString("Address").equals(address)&&(result.getLong("NumTelephone")==numTel)
 						ClientNumTelText.setText(String.valueOf(result.getString("NumTelephone")));
 						ClientEmailText.setText(result.getString("Email"));
+						ClientPasswdText.setText(result.getString("Password"));
 						ClientAdressText.setText(result.getString("Address"));
 					}
 				} catch (Exception e) {
@@ -457,9 +496,11 @@ public class FormAddClient {
 						ClientNumTelText.setDisable(false);
 						ClientEmailText.setDisable(false);
 						ClientAdressText.setDisable(false);
+						ClientPasswdText.setDisable(false);
 						ClientNumTelText.setText(String.valueOf(result.getString("NumTelephone")));
 						ClientEmailText.setText(result.getString("Email"));
 						ClientAdressText.setText(result.getString("Address"));
+						ClientPasswdText.setText(result.getString("Password"));
 					}
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -478,6 +519,7 @@ public class FormAddClient {
 				sqlConnection.executeUpdate(requet);
 				ClientNumTelText.setDisable(true);
 				ClientEmailText.setDisable(true);
+				ClientPasswdText.setDisable(true);
 				ClientAdressText.setDisable(true);
 				telinfos.setText("");
 				emailinfos.setText("");

@@ -10,6 +10,8 @@ import java.sql.Statement;
 
 import Classes.Ligne;
 import ConnectionDB.ConnectToBD;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -31,7 +33,7 @@ import javafx.stage.Stage;
 public class FormAddVente {
 	int id;
 	double total=0;
-	static List<Ligne> tabLignes = new ArrayList<Ligne>();
+	static ObservableList<Ligne> tabLignes = FXCollections.observableArrayList();
 	VBox root = new VBox();
 	VBox rootv = new VBox();
 	Scene scene = new Scene(rootv);
@@ -199,8 +201,9 @@ public class FormAddVente {
 								String prenomCli = newCli.ClientPrenomText.getText().toUpperCase();
 								long numTel = Long.parseLong(newCli.ClientNumTelText.getText());
 								String email = newCli.ClientEmailText.getText();
+								String passwd = newCli.ClientPasswdText.getText();
 								String address = newCli.ClientAdressText.getText();
-								addVente.addClient(nomCli, prenomCli, numTel, email, address);
+								addVente.addClient(nomCli, prenomCli, numTel, email, passwd, address);
 								newCli.window.close();
 							});
 						} else {
@@ -356,5 +359,14 @@ public class FormAddVente {
 		initWindow();
 
 		window.show();
+	}
+	public FormAddVente(String Nom, String Preom) {
+		initWindow();
+		NomClientText.setText(Nom);
+		PrenomClientText.setText(Preom);
+		NomClientText.setEditable(false);
+		PrenomClientText.setEditable(false);
+		window.show();
+		
 	}
 }

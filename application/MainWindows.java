@@ -4,8 +4,12 @@ package application;
 import java.util.List;
 
 import Classes.Categorie;
+import Classes.Ligne;
+import Classes.Produit;
 import ConnectionDB.ConnectToBD;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
@@ -17,7 +21,8 @@ import javafx.scene.layout.BorderPane;
 
 
 public class MainWindows extends Application {
-	private BorderPane root = new BorderPane();
+	static public ObservableList<Ligne> listLignes= FXCollections.observableArrayList();
+	static private BorderPane root = new BorderPane();
 	private Scene scene = new Scene(root);
 	static MenuItem nouveauProd = new MenuItem("Nouveau produit");
 	static MenuItem modifierProd = new MenuItem("modifier produit");
@@ -29,8 +34,9 @@ public class MainWindows extends Application {
 
 	static MenuItem nouvelleVente = new MenuItem("Nouvelle Vente");
 	static MenuItem chercherVente = new MenuItem("Chercher Vente");
+	static MenuItem ListVente = new MenuItem("Liste des Ventes");
 	
-	static MenuItem help = new MenuItem("help");
+	static MenuItem connexion = new MenuItem("Déconnecter");
 	
 	static ChoiceBox<String> Category = new ChoiceBox<String>();
 	
@@ -44,15 +50,14 @@ public class MainWindows extends Application {
 		Menu clientMenu = new Menu("Clients");
 		Menu venteMenu = new Menu("Ventes");
 		Menu paiementMenu = new Menu("Paiements");
-		Menu inventaireMenu = new Menu("Inventaire");
-		Menu helpMenu = new Menu("Help ?");
+		Menu connexionMenu = new Menu("Connexion");
 		
 		productMenu.getItems().addAll(nouveauProd,modifierProd,listProd,listCat);
 		clientMenu.getItems().addAll(nouveauClient,modifierClient,listClient);
-		venteMenu.getItems().addAll(nouvelleVente,chercherVente);
-		helpMenu.getItems().add(help);
+		venteMenu.getItems().addAll(nouvelleVente,chercherVente,ListVente);
+		connexionMenu.getItems().add(connexion);
 		
-		menuBar.getMenus().addAll(productMenu,clientMenu,venteMenu,paiementMenu,inventaireMenu,helpMenu);
+		menuBar.getMenus().addAll(productMenu,clientMenu,venteMenu,paiementMenu,connexionMenu);
 		addEvent();
 		root.setTop(menuBar); 
 		
@@ -91,7 +96,10 @@ public class MainWindows extends Application {
 		chercherVente.setOnAction(event->{
 			new ChercherVente();
 		});
-		help.setOnAction(event->{
+		ListVente.setOnAction(event->{
+			new ListVentes(-1);
+		});
+		connexion.setOnAction(event->{
 			new Login();
 		});
 	}
@@ -125,9 +133,6 @@ public class MainWindows extends Application {
 			Category.getItems().add(cat.getIntitule());
 		}
 		return Category;
-		
-		
-		
 	}
 	
 	public static void main(String[] args) {
@@ -171,9 +176,11 @@ public class MainWindows extends Application {
 		return nouvelleVente;
 	}
 
-	static public MenuItem getHelp() {
-		return help;
+	static public MenuItem getConnexion() {
+		return connexion;
 	}
-	
+	static public BorderPane getRoot() {
+		return root;
+	}
 	
 }

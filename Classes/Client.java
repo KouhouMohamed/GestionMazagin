@@ -14,18 +14,20 @@ public class Client {
 	private String prenomCli;
 	private long numTelephoneCli;
 	private String emailCli;
+	private String passwd;
 	private String adressCli;
 	private  Button deletButt;
 	private  Button setButt;
 	private HBox buttons = new HBox();
 	private ConnectToBD connect = new ConnectToBD();
-	public Client(int id ,String nomCli, String prenomCli, long numTelephoneCli, String emailCli, String adressCli) {
+	public Client(int id ,String nomCli, String prenomCli, long numTelephoneCli, String emailCli,String passwd, String adressCli) {
 		super();
 		this.idCli = id;
 		this.nomCli = nomCli;
 		this.prenomCli = prenomCli;
 		this.numTelephoneCli = numTelephoneCli;
 		this.emailCli = emailCli;
+		this.passwd = passwd;
 		this.adressCli = adressCli;
 
 		this.deletButt = new Button("Supp");

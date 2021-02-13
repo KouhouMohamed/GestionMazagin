@@ -465,7 +465,7 @@ public class FormAddProduct {
 		root.setMargin(prixveninfos, marginText);
 		root.setMargin(qteinfos, marginText);
 		root.setMargin(catinfos, marginText);
-		
+	
 		
 		titleLabel.getStyleClass().add("labelTitle");
 		titleLabel.setMinWidth(window.getWidth()-5);

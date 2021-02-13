@@ -1,7 +1,11 @@
 package Classes;
 
+import java.util.List;
+
 import ConnectionDB.ConnectToBD;
 import application.ListProducts;
+import application.MainWindows;
+import application.FormAddLigne;
 import application.FormSetProduit;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -14,6 +18,7 @@ public class Produit {
 	private int quantity;
 	private  Button deletButt;
 	private  Button setButt;
+	private  Button selectBtn;
 	private HBox buttons = new HBox();
 	private ConnectToBD connect = new ConnectToBD();
 	private Categorie categorie;
@@ -38,10 +43,12 @@ public class Produit {
 		this.categorie = cat;
 		this.deletButt = new Button("Supp");
 		this.setButt = new Button("Set");
+		this.selectBtn = new Button("Select");
 		buttons.setSpacing(5);
-		buttons.getChildren().addAll(deletButt,setButt);
+		buttons.getChildren().addAll(deletButt,setButt,selectBtn);
 		deletButt.getStyleClass().add("DeletButt");
 		setButt.getStyleClass().add("SetButt");
+		selectBtn.getStyleClass().add("SetButt");
 		deletButt.setOnAction(event->{
 			
 			for(Produit verificat : ListProducts.tableProduct.getItems()) {
@@ -54,8 +61,11 @@ public class Produit {
 			}
 		});
 		setButt.setOnAction(event->{
-//			ListProducts.setWindowStyle(1220, 660, this.getCode());
 			new FormSetProduit(String.valueOf(code)).ShowWindow();
+		});
+		selectBtn.setOnAction(event->{
+			FormAddLigne formaddLigne = new FormAddLigne(MainWindows.listLignes, String.valueOf(getCode()));
+			
 		});
 	}
 	public long getCode() {
@@ -97,6 +107,13 @@ public class Produit {
 	}
 	public  Button getDeletButt() {
 		return deletButt;
+	}
+
+	public  Button getSelectBtn() {
+		return selectBtn;
+	}
+	public void setSelectBtn(Button selectBtn) {
+		this.selectBtn = selectBtn;
 	}
 	public void setDeletButt(Button deletButt) {
 		this.deletButt = deletButt;

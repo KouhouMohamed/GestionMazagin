@@ -474,7 +474,6 @@ public class FormSetProduit {
 		
 	}
 	
-
 	public FormSetProduit (String codeText) {
 		ConnectToBD connect = new ConnectToBD();
 		listOfCategories = connect.getListOfCategories();
@@ -485,7 +484,7 @@ public class FormSetProduit {
 	
 	
 	
-	public VBox getRoot(String codeText) {
+	public void getRoot(String codeText) {
 		this.ProdCodeText.setText(codeText);
 		if(codeText != "" && !codeText.isEmpty()) {
 			ConnectToBD connection = new ConnectToBD();
@@ -515,7 +514,6 @@ public class FormSetProduit {
 				}}
 				catch (Exception e) {}
 		}
-		return root;
 		}
 
 	public VBox getRoot() {

@@ -51,4 +51,13 @@ public ChercherVente() {
 	setNodes();
 	SetEvent();
 }
+public ChercherVente(String Nom, String Preom) {
+	setNodes();
+	SetEvent();
+	form.NomClientText.setText(Nom);
+	form.PrenomClientText.setText(Preom);
+	form.NomClientText.setEditable(false);
+	form.PrenomClientText.setEditable(false);
+	
+}
 }

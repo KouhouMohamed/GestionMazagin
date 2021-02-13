@@ -1,13 +1,9 @@
 package Classes;
 
-import com.sun.media.jfxmedia.events.NewFrameEvent;
-
 import ConnectionDB.ConnectToBD;
-import application.FormAddLigne;
 import application.FormSetLigne;
-import application.FormSetProduit;
 import application.FormViewVente;
-import application.ListProducts;
+import application.MainWindows;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
@@ -54,17 +50,22 @@ public class Ligne {
 		deletButt.getStyleClass().add("DeletButt");
 		setButt.getStyleClass().add("SetButt");
 		ConnectToBD connect = new ConnectToBD();
+		if(FormViewVente.etat) {
+			this.deletButt.setDisable(true);
+			this.setButt.setDisable(true);
+		}
+		else{
+			this.deletButt.setDisable(false);
+			this.setButt.setDisable(false);
+		}
 		
 		deletButt.setOnAction(event->{
-			
 			for(Ligne verificat : FormViewVente.tableLigne.getItems()) {
 				if(verificat.getDesignation().equals(this.getDesignation())) {
 					FormViewVente.tableLigne.getSelectionModel().clearSelection();
 					FormViewVente.tableLigne.getItems().remove(verificat);
 					/*Modifier le total de la vente + la qte du produit*/
 					
-					/**/
-
 					connect.setLigne((int)verificat.getProduit().getCode(), FormViewVente.idVent, 0);
 					connect.DeletQuery("Lignes",verificat.getIdLigne());
 					FormViewVente.tableLigne.getItems().get(0).setQuantite(qte);

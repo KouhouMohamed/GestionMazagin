@@ -13,6 +13,8 @@ import Classes.Categorie;
 import Classes.Client;
 import Classes.Ligne;
 import Classes.Produit;
+import Classes.Vente;
+import application.Login;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
@@ -72,7 +74,6 @@ public class ConnectToBD {
 			sqlConnection = connection.prepareStatement(requet);
 			result = sqlConnection.executeQuery(requet);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
@@ -116,16 +117,11 @@ public class ConnectToBD {
 		String requet = "select * from produits";
 		
 		
-		
 		try {
 			PreparedStatement sqlConnection = connection.prepareStatement(requet);
 			result = sqlConnection.executeQuery();
 			String query;
 			while(result.next()) {
-				//resultCategorie = queryExecute("select * from Categorie where CodeCat="+result.getInt("CodeCategorie"));
-				
-				
-				if(result.getBoolean("CodeCategorie")) {
 					try {
 						query = "select * from Categorie where CodeCat="+result.getInt("CodeCategorie");
 						PreparedStatement catConnection = connection.prepareStatement(query);
@@ -140,15 +136,45 @@ public class ConnectToBD {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-				}
-				else {
-					prod = new Produit(result.getLong("CodeProd"), result.getString("Designation"), result.getDouble("PrixAchat"), result.getDouble("PrixVente"),result.getInt("Quantite"),new Categorie(-1,null));
-					listProducts.add(prod);
-				}
 				
 				
 			}
 			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return listProducts;
+	}
+	public ObservableList<Produit> getListOfProducts(String intitule){
+		ObservableList<Produit> listProducts= FXCollections.observableArrayList();
+		ResultSet result;
+		ResultSet resultCategorie;
+		//Categorie cat = new Categorie();
+		int CodeCat=-1;
+		Produit prod;
+		
+
+		String qry = "select * from Categorie where intitule = '"+ intitule+"'";
+		try {
+			PreparedStatement catConnection = connection.prepareStatement(qry);
+			resultCategorie = catConnection.executeQuery();
+			if(resultCategorie.next()) {
+				CodeCat = resultCategorie.getInt("CodeCat");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		String requet = "select * from produits where CodeCategorie = "+CodeCat;
+		try {
+			PreparedStatement sqlConnection = connection.prepareStatement(requet);
+			result = sqlConnection.executeQuery();
+			while(result.next()) {
+					prod = new Produit(result.getLong("CodeProd"), result.getString("Designation"), result.getDouble("PrixAchat"), result.getDouble("PrixVente"),result.getInt("Quantite"),new Categorie(CodeCat,intitule));
+					listProducts.add(prod);
+				}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -190,8 +216,8 @@ public class ConnectToBD {
 		}
 	}
 	
-	public void addClient(String nom, String prenom, long numero, String email, String Address) {
-		String requet = "INSERT INTO `Clients`(`Nom`, `Prenom`, `NumTelephone`, `Email`, `Address`) VALUES ('"+nom+"','"+prenom+"',"+numero+",'"+email+"','"+Address+"')";
+	public void addClient(String nom, String prenom, long numero, String email,String passwd, String Address) {
+		String requet = "INSERT INTO `Clients`(`Nom`, `Prenom`, `NumTelephone`, `Email`,`Password`, `Address`) VALUES ('"+nom+"','"+prenom+"',"+numero+",'"+email+"','"+passwd+"','"+Address+"')";
 		try {
 			PreparedStatement sqlConnection = connection.prepareStatement(requet);
 			sqlConnection.execute();
@@ -209,7 +235,7 @@ public class ConnectToBD {
 			PreparedStatement sqlConnection = connection.prepareStatement(requet);
 			result = sqlConnection.executeQuery();
 			while(result.next()) {
-				client = new Client(result.getInt("IdClient"), result.getString("Nom"),result.getString("Prenom"),result.getLong("NumTelephone"),result.getString("Email"),result.getString("Address"));
+				client = new Client(result.getInt("IdClient"), result.getString("Nom"),result.getString("Prenom"),result.getLong("NumTelephone"),result.getString("Email"),result.getString("Password"),result.getString("Address"));
 				listClis.add(client);
 				
 			}
@@ -265,7 +291,6 @@ public class ConnectToBD {
 				ligne = new Ligne(resultLigne.getInt("IdLigne"),produit,resultLigne.getInt("QteVend"));
 				if(ligne.getQuantite()!=0)
 					listLignes.add(ligne);
-				
 			}
 			
 			
@@ -346,6 +371,7 @@ public class ConnectToBD {
 		}
 	}
 	public Boolean checkLogin(String email, String passwd, char fct) {
+
 		Boolean login = false;
 		String qry = "";
 		switch (fct) {
@@ -362,12 +388,47 @@ public class ConnectToBD {
 		ResultSet rs = queryExecute(qry);
 		try {
 			if(rs.next()) {
+				Login.UserFirstName = rs.getString("Nom");
+				Login.UserSecondName = rs.getString("Prenom");
+				if(fct == 'C') {
+					Login.codeClient = rs.getInt("IdClient");
+				}
 				login = true;
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return login;
+	}
+	public ArrayList<Vente> ListOfVentes(int idclient){
+		ArrayList<Vente> list = new ArrayList<Vente>();
+		ResultSet rs;
+		if(idclient == -1) {
+			rs= queryExecute("select * from Ventes");
+		}
+		else{
+			rs= queryExecute("select * from Ventes where codeClient = "+idclient);
+		}
+		Vente v;
+		int codeVente;
+		String dateVente;
+		double total;
+		boolean etat;
+		try {
+			while(rs.next()) {
+				codeVente = rs.getInt("codeVente");
+				dateVente = rs.getString("dateVente");
+				total = rs.getDouble("total");
+				etat = rs.getBoolean("payer");
+				v = new Vente(codeVente, dateVente, total, etat);
+				list.add(v);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 }

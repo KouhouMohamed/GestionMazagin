@@ -7,6 +7,7 @@ import java.util.List;
 
 import Classes.Ligne;
 import ConnectionDB.ConnectToBD;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -15,25 +16,67 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+
 public class FormAddLigne {
 	List<Ligne> tabLignes;
 	double totalVente=0;
-	FormSetProduit form = new FormSetProduit("");
+	public FormSetProduit form = new FormSetProduit("");
 	Label ProdQteVentLabel = new Label("Quantité à acheter : ");
 	 TextField ProdQteVentText = new TextField();
 	Label qteventinfos = new Label();
-	public FormAddLigne() {}
-	public FormAddLigne(List<Ligne> tabLigne, String codeprod) {
+	public FormAddLigne(ObservableList<Ligne> tabLigne) {
 		SetNodes();
 		SetEvents();
 		form.getRoot(form.ProdCodeText.getText());
+		form.ProdCodeText.setDisable(true);
+		form.ShowWindow();
+		this.tabLignes = tabLigne;
+	}
+	public FormAddLigne(ObservableList<Ligne> tabLigne, String codeprod) {
+		SetNodes();
+		SetEvents();
+		form.getRoot(form.ProdCodeText.getText());
+		form.ProdCodeText.setDisable(true);
 		form.ProdCodeText.setText(codeprod);
 		form.ShowWindow();
 		this.tabLignes = tabLigne;
 		if(codeprod!="") {
+			RemplirForm();
 			ProdQteVentText.setDisable(false);
 		}
 	
+	}
+	private void RemplirForm() {
+		ConnectToBD connection = new ConnectToBD();
+		String query = "select * from produits where CodeProd="+Long.parseLong(form.ProdCodeText.getText());
+		ResultSet result = connection.queryExecute(query);
+		ResultSet resultCategorie;
+		
+		
+		try {
+			if(result.next()) {
+				form.ProdDesgnText.setText(result.getString("Designation"));
+				form.ProdPrixAchText.setText(result.getString("PrixAchat"));
+				form.ProdPrixVenText.setText(result.getString("PrixVente"));
+				form.ProdQteText.setText(result.getString("Quantite"));
+				try {
+					query = "select * from Categorie where CodeCat="+result.getInt("CodeCategorie");
+					resultCategorie = connection.queryExecute(query);
+					if(resultCategorie.next()) {
+						form.Category.getSelectionModel().select(resultCategorie.getString("intitule"));
+					}
+				}
+				catch (Exception e) {}
+				form.codeinfos.getStyleClass().setAll("labelinfosValid");
+				form.codeinfos.setText("*code valid");
+				ProdQteVentText.setDisable(false);
+			}
+			
+		}
+
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	private void SetNodes() {
 		form.titleLabel.setText("Slectionner un produits");

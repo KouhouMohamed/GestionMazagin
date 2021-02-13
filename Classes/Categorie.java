@@ -16,7 +16,7 @@ public class Categorie {
 	private  Button viewButt;
 	private HBox buttons = new HBox();
 	private ConnectToBD connect = new ConnectToBD();
-	
+
 	public Categorie(){}
 	public Categorie(long codeCat, String intitule) {
 		super();
@@ -27,9 +27,10 @@ public class Categorie {
 		this.setButt = new Button("Set");
 		this.viewButt = new Button("View");
 		buttons.setSpacing(5);
-		buttons.getChildren().addAll(deletButt,setButt);
+		buttons.getChildren().addAll(deletButt,setButt,viewButt);
 		deletButt.getStyleClass().add("DeletButt");
 		setButt.getStyleClass().add("SetButt");
+		viewButt.getStyleClass().add("ViewButt");
 		deletButt.setOnAction(event->{
 			for(Categorie verificat : ListCategories.tableCategorie.getItems()) {
 				if(verificat.getDeletButt() == this.deletButt) {
@@ -44,7 +45,7 @@ public class Categorie {
 			new FormSetCategorie(this.codeCat);
 		});
 		viewButt.setOnAction(event->{
-			System.out.println("View Clicked");
+			new ListProducts(getIntitule());
 		});
 	}
 	public long getCodeCat() {

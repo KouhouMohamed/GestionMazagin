@@ -1,33 +1,18 @@
 package application;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import javax.swing.text.TabExpander;
-
-import org.w3c.dom.Node;
-
 import Classes.Categorie;
 import Classes.Produit;
 import ConnectionDB.ConnectToBD;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -68,9 +53,9 @@ public class ListCategories {
 	}
 	
 	private void addEvent() {
-//		window.setOnCloseRequest(event ->{
-//			event.consume();
-//		});
+		window.setOnCloseRequest(event ->{
+			event.consume();
+		});
 		AddNew.setOnAction(event->{
 			new FormAddProduct();
 		});
@@ -89,7 +74,7 @@ public class ListCategories {
 		
 		CodeCat.setCellValueFactory(new PropertyValueFactory<Categorie, String>("codeCat"));
 		Intitule.setCellValueFactory(new PropertyValueFactory<Categorie, String>("intitule"));
-		Actions.setCellValueFactory(new PropertyValueFactory<Produit,String>("buttons"));
+		Actions.setCellValueFactory(new PropertyValueFactory<Categorie,String>("buttons"));
 		
 	}
 
@@ -137,5 +122,117 @@ public class ListCategories {
 		window.show();
 		
 	}
+	/*Si le compte connecter est un Client*/
+	public ListCategories(boolean change) {
+		initWindow();
+		Remplirtable();
+		AddNew.setVisible(false);
+		window.show();
+	}
+
+	public HBox getRootHbox() {
+		return rootHbox;
+	}
+
+	public ScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
+	public VBox getRoot() {
+		return root;
+	}
+
+	public static TableView<Categorie> getTableCategorie() {
+		return tableCategorie;
+	}
+
+	public Stage getWindow() {
+		return window;
+	}
+
+	public Scene getScene() {
+		return scene;
+	}
+
+	public Label getWindowTitle() {
+		return WindowTitle;
+	}
+
+	public TableColumn<Categorie, String> getCodeCat() {
+		return CodeCat;
+	}
+
+	public TableColumn<Categorie, String> getIntitule() {
+		return Intitule;
+	}
+
+	public TableColumn getActions() {
+		return Actions;
+	}
+
+	public HBox getButtonBox() {
+		return buttonBox;
+	}
+
+	public Button getAddNew() {
+		return AddNew;
+	}
+
+	public Button getCancel() {
+		return Cancel;
+	}
+
+	public void setRootHbox(HBox rootHbox) {
+		this.rootHbox = rootHbox;
+	}
+
+	public void setScrollPane(ScrollPane scrollPane) {
+		this.scrollPane = scrollPane;
+	}
+
+	public void setRoot(VBox root) {
+		this.root = root;
+	}
+
+	public static void setTableCategorie(TableView<Categorie> tableCategorie) {
+		ListCategories.tableCategorie = tableCategorie;
+	}
+
+	public void setWindow(Stage window) {
+		this.window = window;
+	}
+
+	public void setScene(Scene scene) {
+		this.scene = scene;
+	}
+
+	public void setWindowTitle(Label windowTitle) {
+		WindowTitle = windowTitle;
+	}
+
+	public void setCodeCat(TableColumn<Categorie, String> codeCat) {
+		CodeCat = codeCat;
+	}
+
+	public void setIntitule(TableColumn<Categorie, String> intitule) {
+		Intitule = intitule;
+	}
+
+	public void setActions(TableColumn actions) {
+		Actions = actions;
+	}
+
+	public void setButtonBox(HBox buttonBox) {
+		this.buttonBox = buttonBox;
+	}
+
+	public void setAddNew(Button addNew) {
+		AddNew = addNew;
+	}
+
+	public void setCancel(Button cancel) {
+		Cancel = cancel;
+	}
+	
 
 }

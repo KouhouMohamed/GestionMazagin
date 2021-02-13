@@ -34,6 +34,7 @@ public class FormViewVente {
 	 Label Clientlabel = new Label("Client      : ");
 	 Label ClientNom = new Label();
 
+	 
 	 HBox InfoHbox = new HBox();
 	 VBox InfoVbox = new VBox();
 	 public static  TableView<Ligne> tableLigne = new TableView<Ligne>(); 
@@ -46,13 +47,17 @@ public class FormViewVente {
 	 HBox TotalBox = new HBox();
 	 Label totalLabel = new Label("Total du vente : ");
 	 static Label TotalText = new Label();
+	 static Label infoPaiment = new Label();
 	 Button AddNew = new Button("Ajouter nouveau");
 
-		public FormViewVente(int idVente) {
+	 public static boolean etat;
+	
+	 public FormViewVente(int idVente) {
 			initWindow();
 			FormViewVente.idVent = idVente;
-			Remplirtable(idVente);
 			getInfoClient(idVente);
+			Remplirtable(idVente);
+			
 			window.show();
 			
 		}
@@ -60,7 +65,7 @@ public class FormViewVente {
 		    tableLigne.getColumns().addAll(prodDesg,prixProd,prodQte,totalLigne,Actions);
 			VenteBox.getChildren().addAll(Ventelabel,VentelabelNum);
 			ClientBox.getChildren().addAll(Clientlabel,ClientNom);
-			TotalBox.getChildren().addAll(totalLabel,TotalText);
+			TotalBox.getChildren().addAll(totalLabel,TotalText,infoPaiment);
 			
 			InfoVbox.getChildren().addAll(VenteBox,ClientBox);
 			InfoHbox.getChildren().addAll(InfoVbox, AddNew);
@@ -76,7 +81,7 @@ public class FormViewVente {
 		window.setScene(scene);
 		window.setWidth(930);
 		window.setHeight(600);
-		window.setTitle("Liste des produits");
+		window.setTitle("Affichage de la vente");
 		
 		if(window.getModality() != Modality.APPLICATION_MODAL) {
 			window.getIcons().add(new Image(getClass().getResourceAsStream("icone.jpg")));
@@ -167,6 +172,7 @@ public class FormViewVente {
 		TotalBox.getStyleClass().add("labelTitle");
 		AddNew.getStyleClass().add("NewprodInList");
 		AddNew.setAlignment(Pos.TOP_RIGHT);
+		infoPaiment.getStyleClass().setAll("ventePaye");
 		
 	}
 	public static void  Remplirtable(int IdVente) {
@@ -181,13 +187,8 @@ public class FormViewVente {
 		}
 		TotalText.setText(String.valueOf(ln));
 	}
-	public ObservableList<Ligne> getListLigne(int IdVente){
-		ConnectToBD connect = new ConnectToBD();
-		ObservableList<Ligne> listOfLignes;
-		listOfLignes = connect.getListOfLignes(IdVente);
-		return listOfLignes;
-	}
 	public void getInfoClient(int id) {
+
 		long idcli=-1;
 		String requet = "select * from Ventes where codeVente= "+id;
 		String requet1;
@@ -196,7 +197,15 @@ public class FormViewVente {
 			if(result1.next()) {
 				idcli = result1.getInt("CodeClient");
 				VentelabelNum.setText("N° "+id + ", du "+result1.getString("dateVente"));
-
+				etat = result1.getBoolean("payer");
+				if(result1.getBoolean("payer")) {
+					infoPaiment.setText("*Cette vente est payée");
+					AddNew.setDisable(true);
+				}
+				else {
+					infoPaiment.setText("*Cette vente n'est pas encore payée");
+					AddNew.setDisable(false);
+				}
 				requet1 = "select * from Clients where IdClient= "+idcli;
 				ResultSet result = ViewConnect.queryExecute(requet1);
 				if(result.next()) {
