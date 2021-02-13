@@ -162,12 +162,9 @@ public class Login {
 		
 		MainWindows.getListProd().setOnAction(event->{
 			ListProducts listProds = new ListProducts(true);
-			listProds.getActions().setCellValueFactory(new PropertyValueFactory<Produit,String>("selectBtn"));
 		});
 		MainWindows.getListCat().setOnAction(event->{
 			ListCategories listCats = new ListCategories(true);
-			listCats.getActions().setCellValueFactory(new PropertyValueFactory<Categorie,String>("viewButt"));
-
 		});
 		MainWindows.chercherVente.setOnAction(event->{
 			new ChercherVente(UserFirstName,UserSecondName);

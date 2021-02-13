@@ -48,7 +48,7 @@ public class Produit {
 		buttons.getChildren().addAll(deletButt,setButt,selectBtn);
 		deletButt.getStyleClass().add("DeletButt");
 		setButt.getStyleClass().add("SetButt");
-		selectBtn.getStyleClass().add("SetButt");
+		selectBtn.getStyleClass().add("ViewButt");
 		deletButt.setOnAction(event->{
 			
 			for(Produit verificat : ListProducts.tableProduct.getItems()) {

@@ -58,7 +58,7 @@ public class ListProducts {
 		scrollPane.setContent(root);
 		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		window.setScene(scene);
-		window.setWidth(930);
+		window.setWidth(1000);
 		window.setHeight(600);
 		window.setTitle("Liste des produits");
 		
@@ -129,15 +129,15 @@ public class ListProducts {
 		buttonBox.setMaxWidth(window.getWidth());
 		root.setSpacing(20);
 		prodCode.setMaxWidth(50);
-		double width = (window.getWidth()-10)/7;
+		double width = (window.getWidth()-10)/7 - 10;
 		prodCode.setMinWidth(width);
 		prodDesgn.setMinWidth(width);
 		prodQte.setMinWidth(width);
 		prodPrixAch.setMinWidth(width);
 		prodPrixVen.setMinWidth(width);
 		Category.setMinWidth(width);
-		Actions.setMinWidth(width-15);
-		Actions.setMaxWidth(width-15);
+		Actions.setMinWidth(width+50);
+		Actions.setMaxWidth(width+50);
 		
 		AddNew.getStyleClass().add("NewprodInList");
 		Cancel.getStyleClass().add("CancelInList");
