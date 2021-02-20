@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 
 import ConnectionDB.ConnectToBD;
 import application.FormViewVente;
+import application.Paiement;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
@@ -34,6 +35,9 @@ public class LabelVent{
 		
 		this.viewBtn.setOnAction(evnt->{
 			new FormViewVente(this.idvent);
+		});
+		this.payeBtn.setOnAction(evnet->{
+			new Paiement(this.TotalVente, this.idvent,this);
 		});
 	}
 	public String getNom(int id) {

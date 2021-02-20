@@ -200,7 +200,7 @@ public class FormViewVente {
 				etat = result1.getBoolean("payer");
 				if(result1.getBoolean("payer")) {
 					infoPaiment.setText("*Cette vente est payée");
-					AddNew.setDisable(true);
+					InfoHbox.getChildren().remove(AddNew);
 				}
 				else {
 					infoPaiment.setText("*Cette vente n'est pas encore payée");

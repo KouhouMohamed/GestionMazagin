@@ -48,6 +48,7 @@ public class Login {
 	static public String UserSecondName="";
 	static public int codeClient=-1;
 	
+	static boolean firstTime = true;
 	public Login() {
 		InitWindow();
 		
@@ -105,6 +106,7 @@ public class Login {
 			window.close();
 		});
 		loginBtn.setOnAction(event->{
+			
 			Alert message = new Alert(AlertType.ERROR);
 			message.setTitle("Information...");
 		 	message.setHeaderText("Email ou mot de passe incorects");
@@ -126,9 +128,11 @@ public class Login {
 			if(login) {
 				if(fct == 'A') {
 					window.close();
+					if(!firstTime)
+						MainWindows.LunchForAdmin();
 				}
 				else {
-					
+					firstTime = false;
 					MainWindowClient();
 					window.close();
 				}

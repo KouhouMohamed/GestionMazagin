@@ -155,3 +155,25 @@
 	-fx-text-fill:#ff0000;
 	-fx-font-size:12px;
 }
+
+.labelValidPaiem{
+	-fx-background-color : #00ff00;
+	-fx-text-fill:#000;
+	-fx-font-size:15px;
+}
+.labelErrorPaiem{
+	-fx-background-color : #ff0000;
+	-fx-text-fill:#000;
+	/*-fx-font-size:15px;*/
+}
+
+.paiementChoice{
+	-fx-background-color : #9999ff;
+	-fx-text-fill:#000;
+	/*-fx-font-size:15px;*/
+	
+}
+.numeroCompte{
+	-fx-text-fill:#000;
+	-fx-font-size:15px;
+}

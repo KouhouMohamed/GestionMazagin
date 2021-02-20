@@ -20,6 +20,7 @@ public class Client {
 	private  Button setButt;
 	private HBox buttons = new HBox();
 	private ConnectToBD connect = new ConnectToBD();
+	
 	public Client(int id ,String nomCli, String prenomCli, long numTelephoneCli, String emailCli,String passwd, String adressCli) {
 		super();
 		this.idCli = id;
@@ -30,6 +31,7 @@ public class Client {
 		this.passwd = passwd;
 		this.adressCli = adressCli;
 
+		
 		this.deletButt = new Button("Supp");
 		this.setButt = new Button("Set");
 		buttons.setSpacing(5);
@@ -49,6 +51,9 @@ public class Client {
 		setButt.setOnAction(event->{
 			new FormAddClient(true,this.idCli);
 		});
+	}
+	public Client() {
+		// TODO Auto-generated constructor stub
 	}
 	public Button getDeletButt() {
 		return deletButt;

@@ -125,9 +125,9 @@ public class ListCategories {
 	/*Si le compte connecter est un Client*/
 	public ListCategories(boolean change) {
 		initWindow();
-		Actions.setCellValueFactory(new PropertyValueFactory<Categorie,String>("viewButt"));
+		Actions.setCellValueFactory(new PropertyValueFactory<Categorie,String>("viewButtClient"));
 		Remplirtable();
-		AddNew.setVisible(false);
+		buttonBox.getChildren().remove(AddNew);
 		window.show();
 	}
 

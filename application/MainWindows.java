@@ -36,6 +36,7 @@ public class MainWindows extends Application {
 	static MenuItem chercherVente = new MenuItem("Chercher Vente");
 	static MenuItem ListVente = new MenuItem("Liste des Ventes");
 	
+	static MenuItem paiementCarte = new MenuItem("Paiement par carte");
 	static MenuItem connexion = new MenuItem("Déconnecter");
 	
 	static ChoiceBox<String> Category = new ChoiceBox<String>();
@@ -43,13 +44,12 @@ public class MainWindows extends Application {
 	
 	
 	
-	private void createMenu() {
+	private  static void createMenu() {
 		MenuBar menuBar = new MenuBar();
 		
 		Menu productMenu = new Menu("Produits");
 		Menu clientMenu = new Menu("Clients");
 		Menu venteMenu = new Menu("Ventes");
-		Menu paiementMenu = new Menu("Paiements");
 		Menu connexionMenu = new Menu("Connexion");
 		
 		productMenu.getItems().addAll(nouveauProd,modifierProd,listProd,listCat);
@@ -57,14 +57,14 @@ public class MainWindows extends Application {
 		venteMenu.getItems().addAll(nouvelleVente,chercherVente,ListVente);
 		connexionMenu.getItems().add(connexion);
 		
-		menuBar.getMenus().addAll(productMenu,clientMenu,venteMenu,paiementMenu,connexionMenu);
+		menuBar.getMenus().addAll(productMenu,clientMenu,venteMenu,connexionMenu);
 		addEvent();
 		root.setTop(menuBar); 
 		
 		
 	}
 	
-	private void addEvent() {
+	private static void addEvent() {
 		nouveauProd.setOnAction(event ->{
 			new FormAddProduct();
 		});
@@ -119,7 +119,7 @@ public class MainWindows extends Application {
 			window.getIcons().add(new Image(getClass().getResourceAsStream("icone.jpg")));
 			window.setResizable(false);
 			window.show();
-			new Login();
+			//new Login();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -142,6 +142,24 @@ public class MainWindows extends Application {
 		launch(args);
 		
 		
+	}
+	static public void LunchForAdmin(){
+		MainWindows.getNouveauProd().setDisable(false);
+		MainWindows.getNouveauProd().setVisible(true);
+		
+		MainWindows.getModifierClient().setDisable(false);
+		MainWindows.getModifierClient().setVisible(true);
+		
+		MainWindows.getModifierProd().setDisable(false);
+		MainWindows.getModifierProd().setVisible(true);
+		
+		MainWindows.getListClient().setDisable(false);
+		MainWindows.getListClient().setVisible(true);
+		
+		MainWindows.getNouveauClient().setDisable(false);
+		MainWindows.getNouveauClient().setVisible(true);
+		ListVente.setText("Liste des ventes");
+		addEvent();
 	}
 
 	static public MenuItem getNouveauProd() {

@@ -14,6 +14,7 @@ public class Categorie {
 	private  Button deletButt;
 	private  Button setButt;
 	private  Button viewButt;
+	private  Button viewButtClient;
 	private HBox buttons = new HBox();
 	private ConnectToBD connect = new ConnectToBD();
 
@@ -26,11 +27,13 @@ public class Categorie {
 		this.deletButt = new Button("Supp");
 		this.setButt = new Button("Set");
 		this.viewButt = new Button("View");
+		this.viewButtClient = new Button("View");
 		buttons.setSpacing(5);
 		buttons.getChildren().addAll(deletButt,setButt,viewButt);
 		deletButt.getStyleClass().add("DeletButt");
 		setButt.getStyleClass().add("SetButt");
 		viewButt.getStyleClass().add("ViewButt");
+		viewButtClient.getStyleClass().add("ViewButt");
 		deletButt.setOnAction(event->{
 			for(Categorie verificat : ListCategories.tableCategorie.getItems()) {
 				if(verificat.getDeletButt() == this.deletButt) {
@@ -46,6 +49,9 @@ public class Categorie {
 		});
 		viewButt.setOnAction(event->{
 			new ListProducts(getIntitule());
+		});
+		viewButtClient.setOnAction(event->{
+			new ListProducts(getIntitule(),true);
 		});
 	}
 	public long getCodeCat() {
@@ -71,6 +77,9 @@ public class Categorie {
 	public Button getViewButt() {
 		return viewButt;
 	}
+	public Button getViewButtClient() {
+		return viewButtClient;
+	}
 	
 	public HBox getButtons() {
 		return buttons;
@@ -83,6 +92,9 @@ public class Categorie {
 	}
 	public void setViewButt(Button viewButt) {
 		this.viewButt = viewButt;
+	}
+	public void setViewButtClient(Button viewButtClient) {
+		this.viewButtClient = viewButtClient;
 	}
 	public void setButtons(HBox buttons) {
 		this.buttons = buttons;

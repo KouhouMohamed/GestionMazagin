@@ -4,6 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import com.mysql.jdbc.Connection;
 
@@ -12,25 +17,28 @@ import javafx.collections.ObservableList;
 
 class Programm{
 	public static void main(String[] args) {
-		ConnectToBD connect = new ConnectToBD();
-		Connection connection = (Connection) connect.getConnection();
-		String nom="kouhou";
-		String prenom="medko";
-		String q = " select Quantite from produits where CodeProd="+1666;
-		double qte=0;
+	
+		String tab[]={"A B", "C D", "H I", "M N", "M N", "A B", "H I", "A B", "C D" };
+		Map<String, Integer> word = new HashMap<String, Integer>();
 		
-		
-		try {
-			ResultSet result1 =  connect.queryExecute(q);
-			if(result1.next()) {
-				qte = result1.getInt("Quantite")+110;
+		for(int i=0;i<tab.length;i++) {
+			if(word.containsKey(tab[i])) {
+				word.replace(tab[i], word.get(tab[i])+1);
 			}
-			String query =" UPDATE `produits` SET `Quantite`=  "+qte+" WHERE CodeProd="+1666;
-
-			Statement sqlConnection = connect.getConnection().createStatement();
-			sqlConnection.executeUpdate(query);
-		} catch (Exception e) {
-			e.printStackTrace();
+			else {
+				word.put(tab[i], 1);
+			}
+			
+		}
+		Set<Entry<String,Integer>> set=word.entrySet();
+		for(Entry s : set) {
+			System.out.println(s.getKey() + ":"+s.getValue());
+		}
+		
+		Arrays.sort(tab);
+		for(int i=0;i<tab.length;i++) {
+			System.out.println(tab[i]);
+			
 		}
 		
 	}

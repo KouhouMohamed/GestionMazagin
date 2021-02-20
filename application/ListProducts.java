@@ -178,7 +178,15 @@ public class ListProducts {
 		initWindow();
 		Actions.setCellValueFactory(new PropertyValueFactory<Produit,String>("selectBtn"));
 		Remplirtable();
-		AddNew.setVisible(false);
+		buttonBox.getChildren().remove(AddNew);
+		window.show();
+		
+	}
+	public ListProducts(String intitule, boolean change) {
+		initWindow();
+		Actions.setCellValueFactory(new PropertyValueFactory<Produit,String>("selectBtn"));
+		Remplirtable(intitule);
+		buttonBox.getChildren().remove(AddNew);
 		window.show();
 		
 	}

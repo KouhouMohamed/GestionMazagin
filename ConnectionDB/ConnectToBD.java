@@ -21,6 +21,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.HBox;
 
+
+
 public class ConnectToBD {
 	private Connection connection;
 	public Connection getConnection() {
@@ -49,6 +51,9 @@ public class ConnectToBD {
 		case "Lignes":
 			query = "delete from Lignes where IdLigne="+code;
 			break;
+		case "Ventes":
+			query = "delete from Ventes where codeVente="+code;
+			break;
 			
 		default:
 			break;
@@ -60,6 +65,12 @@ public class ConnectToBD {
 			sqlConnection.executeUpdate(query);
 			if(tab == "Categorie") {
 				query = " UPDATE `produits` SET `CodeCategorie`= '"+null+"' where CodeCategorie= "+code;
+				sqlConnection.executeUpdate(query);
+			}
+			if(tab == "Ventes") {
+				query = "delete from Lignes where IdVente="+code;
+				sqlConnection.executeUpdate(query);
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
